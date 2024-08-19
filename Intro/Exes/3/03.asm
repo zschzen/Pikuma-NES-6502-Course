@@ -8,13 +8,12 @@
 RESET:
     SEI
     CLD
-Solution:                  ; TODO:
+Solution:
     LDA #15                ; Load the A register with the literal decimal value 15
+
     TAX                    ; Transfer the value from A to X
     TAY                    ; Transfer the value from A to Y
-    LDX #$AA
     TXA                    ; Transfer the value from X to A
-    LDY #$BB
     TYA                    ; Transfer the value from Y to A
 
     LDX #6                 ; Load X with the decimal value 6
