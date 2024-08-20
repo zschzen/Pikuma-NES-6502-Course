@@ -40,6 +40,17 @@ Reset:
     TXS                      ; Initialize the stack pointer at address $FF
 
     INX                      ; Increment X, causing a rolloff from $FF to $00
+    STX PPU_CTRL             ; disable NMI
+    STX PPU_MASK             ; disable rendering
+    STX $4010                ; disable DMC IRQs
+
+    LDA #$40
+    STA $4017                ; Disable APU frame IRQ
+
+Wait1stVBlank:               ; Wait for the first VBlank from the PPU
+    BIT PPU_STATUS           ; Perform a bit-wise check with the PPU_STATUS port
+    BPL Wait1stVBlank        ; Loop until bit-7 (sign bit) is 1 (inside VBlank)
+
     TXA                      ; A = 0
 
 ClearRAM:
@@ -54,13 +65,19 @@ ClearRAM:
     INX
     BNE ClearRAM
 
+Wait2ndVBlank:               ; Wait for the second VBlank from the PPU
+    BIT PPU_STATUS           ; Perform a bit-wise check with the PPU_STATUS port
+    BPL Wait2ndVBlank        ; Loop until bit-7 (sign bit) is 1 (inside VBlank)
+
 Main:
     LDX #$3F
     STX PPU_ADDR             ; Set hi-byte of PPU_ADDR to $3F
     LDX #$00
     STX PPU_ADDR             ; Set lo-byte of PPU_ADDR to $00
+
     LDA #$04
     STA PPU_DATA             ; Send $04 to PPU_DATA
+
     LDA #%00011110
     STA PPU_MASK             ; Set PPU_MASK bits to show background and sprites
 
