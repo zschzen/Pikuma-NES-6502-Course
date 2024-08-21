@@ -12,3 +12,11 @@
 .byte $00                    ; Extra flags for TV format and PRG-RAM
 .byte $00,$00,$00,$00,$00    ; Unused padding to complete 16 bytes of header
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Vectors with the addresses of the handlers that we always add at $FFFA
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+.segment "VECTORS"
+.word NMI                    ; Address (2 bytes) of the NMI handler
+.word Reset                  ; Address (2 bytes) of the Reset handler
+.word IRQ                    ; Address (2 bytes) of the IRQ handler
+

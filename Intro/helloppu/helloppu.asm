@@ -40,11 +40,3 @@ NMI:
 IRQ:
     RTI                      ; Return from interrupt
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Vectors with the addresses of the handlers that we always add at $FFFA
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-.segment "VECTORS"
-.word NMI                    ; Address (2 bytes) of the NMI handler
-.word Reset                  ; Address (2 bytes) of the Reset handler
-.word IRQ                    ; Address (2 bytes) of the IRQ handler
-
