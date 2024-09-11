@@ -12,7 +12,6 @@
 
 # Other files
 *.map
-*.cfg
 
 # macOS files
 .DS_Store
